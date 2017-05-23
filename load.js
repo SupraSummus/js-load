@@ -1,49 +1,42 @@
 /**
  * This script stores loading function under `window.load`.
  *
- * window.load(path, success, fail)
+ * window.load(path)
  *
  * @param {string} path - address of script to be loaded
- * @param {function} success - callback to be called when loading is
- *   successfull. It takes single argument - value evaluated from loaded
- *   file.
- * @param {function} fail - fail callback
+ *
+ * Returns a promise of loaded thing.
  */
 
 (function () {
 	'use strict';
 
-	var load = function (path, success, fail) {
+	var load = function (path) {
+		return new Promise(function (resolve, reject) {
 
-		if (success === undefined) {
-			success = function () {};
-		}
+			var xmlhttp = new XMLHttpRequest();
 
-		if (fail === undefined) {
-			fail = console.error;
-		}
-
-		var xmlhttp = new XMLHttpRequest();
-
-		xmlhttp.onreadystatechange = function () {
-			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-				if (xmlhttp.status == 200) {
-					var val;
-					try {
-						val = eval(xmlhttp.responseText);
-					} catch (err) {
-						fail(err);
+			xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+					if (xmlhttp.status == 200) {
+						var val;
+						try {
+							val = eval(xmlhttp.responseText);
+						} catch (err) {
+							reject(err);
+							return;
+						}
+						val.then(resolve);
+					} else {
+						reject('couldn\'t download: ' + path);
 					}
-					success(val);
-				} else {
-					fail('couldn\'t download');
 				}
-			}
-		};
+			};
 
-		xmlhttp.open('GET', path, true);
-		xmlhttp.send();
+			xmlhttp.open('GET', path, true);
+			xmlhttp.send();
 
+		});
 	};
 
 	window.load = load;

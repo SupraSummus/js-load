@@ -1,0 +1,19 @@
+{
+    "sources": {
+        "example/index.html": {
+            "./load.js": {"type": "ref", "source": "load.js"},
+            "./main.js": {"type": "ref", "source": "example/main.js"}
+        },
+        "example/main.js": {
+            "./settings.js": {"type": "ref", "source": "example/settings.js"},
+            "./advanced_processing.js": {"type": "ref", "source": "example/advanced_processing.js"}
+        },
+        "example/advanced_processing.js": {
+            "./processing.js": {"type": "ref", "source": "example/processing.js"}
+        }
+    },
+    "targets": [
+        "load.js",
+        "example/index.html"
+    ]
+}

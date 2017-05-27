@@ -1,4 +1,5 @@
 {
-    "example/index.html": "QmUVDRRA7Pr8Zw2fZtGNcNPo44JKNUumEdVTM95MTEvm2u",
-    "load.js": "QmThAJ9rN8mAY1XNmHeqGBKWuBPpafJaivJ8BUP7Vr1Cey"
+    "examples/syntax_error/index.html": "QmVsE9AaBP48LmYE8L3BFix5e2wmAEdQdS7NmvMmsNBksx",
+    "examples/working_example/index.html": "QmPn1Z5Hg9c45KXUj46Jhb4MAC5kFFtahcKFSUiTHHPfmD",
+    "load.js": "QmeYs4Kmt2r2HuqBRWp9CDZYdhVd2vNPXEfdecqDrtFgqU"
 }

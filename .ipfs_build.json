@@ -1,19 +1,30 @@
 {
     "sources": {
-        "example/index.html": {"type": "replace", "replace": {
-            "./load.js": "load.js",
-            "./main.js": "example/main.js"
+        "examples/syntax_error/index.html": {"type": "replace", "replace": {
+            "load.js": "load.js",
+            "./deep.js": "examples/syntax_error/deep.js"
         }},
-        "example/main.js": {"type": "replace", "replace": {
-            "./settings.js": "example/settings.js",
-            "./advanced_processing.js": "example/advanced_processing.js"
+        "examples/syntax_error/deep.js": {"type": "replace", "replace": {
+            "./deeper.js": "examples/syntax_error/deeper.js"
         }},
-        "example/advanced_processing.js": {"type": "replace", "replace": {
-            "./processing.js": "example/processing.js"
+        "examples/syntax_error/deeper.js": {"type": "replace", "replace": {
+            "./corrupted.js": "examples/syntax_error/corrupted.js"
+        }},
+
+        "examples/working_example/index.html": {"type": "replace", "replace": {
+            "load.js": "load.js",
+            "./main.js": "examples/working_example/main.js"
+        }},
+        "examples/working_example/main.js": {"type": "replace", "replace": {
+            "./settings.js": "examples/working_example/settings.js",
+            "./advanced_processing.js": "examples/working_example/advanced_processing.js"
+        }},
+        "examples/working_example/advanced_processing.js": {"type": "replace", "replace": {
+            "./processing.js": "examples/working_example/processing.js"
         }}
     },
     "targets": [
         "load.js",
-        "example/index.html"
+        "examples/**/index.html"
     ]
 }

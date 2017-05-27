@@ -3,40 +3,59 @@
  *
  * window.load(path)
  *
- * @param {string} path - address of script to be loaded
+ * @param {string} path - address of expression to be loaded.
  *
  * Returns a promise of loaded thing.
  */
 
+'use strict';
+
 (function () {
-	'use strict';
 
-	var load = function (path) {
+	var getFile = function (path) {
+
 		return new Promise(function (resolve, reject) {
+			var xhr = new XMLHttpRequest();
 
-			var xmlhttp = new XMLHttpRequest();
-
-			xmlhttp.onreadystatechange = function () {
-				if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-					if (xmlhttp.status == 200) {
-						var val;
-						try {
-							val = eval(xmlhttp.responseText);
-						} catch (err) {
-							reject(err);
-							return;
-						}
-						val.then(resolve);
-					} else {
-						reject('couldn\'t download: ' + path);
-					}
+			xhr.onload = function () {
+				if (xhr.status >= 200 && xhr.status < 300) {
+					resolve({
+						content: xhr.responseText,
+						name: xhr.responseURL,
+					});
+				} else {
+					reject(new Error('Couldn\'t GET ' + path));
 				}
 			};
 
-			xmlhttp.open('GET', path, true);
-			xmlhttp.send();
+			xhr.onerror = function () {
+				reject(new Error('Couldn\'t GET ' + path));
+			};
 
+			xhr.open('GET', path);
+			xhr.send();
 		});
+	};
+
+	var evaluate = function (file) {
+
+		// evaluate file content
+		try {
+			var valPromise = eval(file.content);
+		} catch (err) {
+			return Promise.reject(err);
+		}
+
+		// check result type
+		if (!(valPromise instanceof Promise)) {
+			return Promise.reject(new TypeError('File ' + file.name + ' evaluated to non-Promise value.'));
+		}
+
+		return valPromise;
+	};
+
+	var load = function (path) {
+		return getFile(path).then(evaluate);
 	};
 
 	window.load = load;

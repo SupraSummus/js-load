@@ -1,3 +1,9 @@
+Dynamic expression loader for client-side JavaScript
+====================================================
+
+Give it a URL and it will return you a promise of a value of expression
+stored at this URL.
+
 But why?
 --------
 
@@ -27,31 +33,34 @@ You got four files in your app: a magic settings module, some
 processing stuff, more advanced processing stuff, and logic that binds
 everything together.
 
+(Note the missing semicolons - it's intentional as files contain
+expressions not statements.)
+
 Settings are just a single number (file `settings.js`):
 
-    Promise.resolve(42);
+    Promise.resolve(42)
 
 Processing is a function that squares the number (file `processing.js`):
 
-    Promise.resolve(function (n) {return n*n;});
+    Promise.resolve(function (n) {return n*n;})
 
 Some advanced processing that uses regular processing (file
 `advanced_processing.js`):
 
-    load('./processing.js').then(function (processing) {
+    load('processing.js').then(function (processing) {
         return function (n) {
             return 'kboom! ' + processing(n);
         };
-    });
+    })
 
 And the glue (file `main.js`):
 
     Promise.all([
-        load('./settings.js'),
-        load('./advanced_processing.js'),
+        load('settings.js'),
+        load('advanced_processing.js'),
     ]).then(function ([settings, advancedProcessing]) {
         console.log(advancedProcessing(settings));
-    });
+    })
 
 
 Then in `index.html`:
@@ -64,6 +73,12 @@ IPFS context
 
 Library seems to me very useful in webapps hosted on IPFS.
 
-IPFS hashes of library and example setup are in
+IPFS hashes of library and example setups are in
 `published_version.json`. I don't guarantee that they are pinned on
 continously available node.
+
+Downsides
+---------
+
+Mozilla Firefox 53.0.2 messes up traces of errors coming from `eval()`.
+It makes debugging somewhat hard.

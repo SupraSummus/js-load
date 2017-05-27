@@ -1,16 +1,16 @@
 {
     "sources": {
-        "example/index.html": {
-            "./load.js": {"type": "ref", "source": "load.js"},
-            "./main.js": {"type": "ref", "source": "example/main.js"}
-        },
-        "example/main.js": {
-            "./settings.js": {"type": "ref", "source": "example/settings.js"},
-            "./advanced_processing.js": {"type": "ref", "source": "example/advanced_processing.js"}
-        },
-        "example/advanced_processing.js": {
-            "./processing.js": {"type": "ref", "source": "example/processing.js"}
-        }
+        "example/index.html": {"type": "replace", "replace": {
+            "./load.js": "load.js",
+            "./main.js": "example/main.js"
+        }},
+        "example/main.js": {"type": "replace", "replace": {
+            "./settings.js": "example/settings.js",
+            "./advanced_processing.js": "example/advanced_processing.js"
+        }},
+        "example/advanced_processing.js": {"type": "replace", "replace": {
+            "./processing.js": "example/processing.js"
+        }}
     },
     "targets": [
         "load.js",

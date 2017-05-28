@@ -55,7 +55,11 @@
 	};
 
 	var load = function (path) {
-		return getFile(path).then(evaluate);
+		return new Promise(function (resolve, reject) {
+			getFile(path).then(function (file) {
+				evaluate(file).then(resolve, reject);
+			}, reject);
+		});
 	};
 
 	window.load = load;

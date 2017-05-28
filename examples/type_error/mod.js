@@ -1,1 +1,3 @@
-Promise.resolve(5)
+load('./submod.js').then(function (submod) {
+    return submod(4);
+})

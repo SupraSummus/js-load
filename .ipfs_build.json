@@ -18,6 +18,9 @@
         "examples/type_error/main.js": {"type": "replace", "replace": {
             "./mod.js": "examples/type_error/mod.js"
         }},
+        "examples/type_error/mod.js": {"type": "replace", "replace": {
+            "./submod.js": "examples/type_error/submod.js"
+        }},
 
         "examples/working_example/index.html": {"type": "replace", "replace": {
             "load.js": "load.js",

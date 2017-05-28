@@ -11,6 +11,14 @@
             "./corrupted.js": "examples/syntax_error/corrupted.js"
         }},
 
+        "examples/type_error/index.html": {"type": "replace", "replace": {
+            "load.js": "load.js",
+            "./main.js": "examples/type_error/main.js"
+        }},
+        "examples/type_error/main.js": {"type": "replace", "replace": {
+            "./mod.js": "examples/type_error/mod.js"
+        }},
+
         "examples/working_example/index.html": {"type": "replace", "replace": {
             "load.js": "load.js",
             "./main.js": "examples/working_example/main.js"
